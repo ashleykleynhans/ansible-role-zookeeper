@@ -1,5 +1,15 @@
 ---
 
+- name: ZOOKEEPER | Ensure zookeeper group
+  group:
+    name: "{{ zookeeper_group }}"
+
+- name: ZOOKEEPER | Ensure zookeeper user
+  user:
+    name: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+    home: /bin/false
+
 - name: ZOOKEEPER | Create data path
   file:
     path: "{{ zookeeper_data_path }}"
