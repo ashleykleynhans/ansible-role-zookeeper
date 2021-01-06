@@ -1,0 +1,9 @@
+{% if groups['zookeeper_hosts'] is defined %}
+{% for zookeeper_host_ip in groups['zookeeper_hosts'] | map('extract', hostvars, ['ansible_all_ipv4_addresses']) | flatten %}
+{% if hostvars[inventory_hostname]['ansible_default_ipv4']['address'] == zookeeper_host_ip %}
+{{ loop.index }}
+{% endif %}
+{% endfor %}
+{% else %}
+1
+{% endif %}

@@ -1,0 +1,19 @@
+---
+
+- name: ZOOKEEPER | myid
+  template:
+    src: "{{ zookeeper_myid_template_path }}"
+    dest: "{{ zookeeper_data_path }}/myid"
+    mode: "0640"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+  notify: restart zookeeper
+
+- name: ZOOKEEPER | Copy server config
+  template:
+    src: "{{ zookeeper_server_template_path }}"
+    dest: "{{ zookeeper_conf_path }}/zookeeper.properties"
+    mode: "0640"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+  notify: restart zookeeper

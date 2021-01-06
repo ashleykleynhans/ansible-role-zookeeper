@@ -1,0 +1,25 @@
+##
+# {{ ansible_managed }}
+
+tickTime=2000
+initLimit=10
+syncLimit=5
+
+dataDir={{ zookeeper_data_path }}
+# the port at which the clients will connect
+clientPort={{ zookeeper_client_port }}
+# disable the per-ip limit on the number of connections since this is a non-production config
+maxClientCnxns={{ zookeeper_max_connections }}
+# Disable the adminserver by default to avoid port conflicts.
+# Set the port to something non-conflicting if choosing to enable this
+admin.enableServer=false
+# admin.serverPort={{ zookeeper_admin_port }}
+
+{% if groups['zookeeper_hosts'] is defined %}
+{% for zookeeper_host_ip in groups['zookeeper_hosts'] | map('extract', hostvars, ['ansible_all_ipv4_addresses']) | flatten %}
+server.{{ loop.index }}={{ zookeeper_host_ip }}:{{ zookeeper_peer_port }}:{{ zookeeper_leader_port }}
+{% endfor %}
+{% endif %}
+
+# Whitelist four letter words
+4lw.commands.whitelist=*

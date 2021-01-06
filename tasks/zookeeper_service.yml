@@ -1,0 +1,22 @@
+---
+
+- name: ZOOKEEPER | Configuring service
+  systemd:
+    name: zookeeper
+    state: "{{ zookeeper_service_state }}"
+    enabled: "{{ zookeeper_service_enabled }}"
+    daemon_reload: true
+
+- name: ZOOKEEPER | Restart if necessary
+  meta: flush_handlers
+
+- name: ZOOKEEPER | Wait for service listening
+  wait_for:
+    host: "{{ ansible_nodename }}"
+    port: "{{ zookeeper_client_port }}"
+    state: "{{ zookeeper_service_state }}"
+    delay: 5
+    timeout: 300
+  when:
+    - zookeeper_service_enabled
+    - zookeeper_service_state == "started"

@@ -1,1 +1,16 @@
 ---
+
+- name: KAFKA | ZOOKEEPER | Install
+  import_tasks: zookeeper_install.yml
+  tags:
+    - zookeeper_install
+
+- name: KAFKA | ZOOKEEPER | Configure
+  import_tasks: zookeeper_config.yml
+  tags:
+    - zookeeper_configure
+
+- name: KAFKA | ZOOKEEPER | Service
+  import_tasks: zookeeper_service.yml
+  tags:
+    - zookeeper_service
