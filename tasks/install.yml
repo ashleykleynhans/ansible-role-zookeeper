@@ -52,3 +52,11 @@
     group: "{{ zookeeper_group }}"
     mode: "0750"
     remote_src: true
+
+- name: ZOOKEEPER | Symlink Zookeeper to install path
+  file:
+    src: "{{ zookeeper_install_path }}/apache-zookeeper-{{ zookeeper_version }}"
+    dest: "{{ zookeeper_install_path }}/zookeeper"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+    state: link
