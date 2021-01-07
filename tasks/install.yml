@@ -10,14 +10,6 @@
     group: "{{ zookeeper_group }}"
     home: /bin/false
 
-- name: ZOOKEEPER | Create data path
-  file:
-    path: "{{ zookeeper_data_path }}"
-    mode: 0760
-    state: directory
-    owner: "{{ zookeeper_user }}"
-    group: "{{ zookeeper_user }}"
-
 - name: ZOOKEEPER | Copy Daemon script
   template:
     src: "{{ zookeeper_service_template_path }}"
@@ -60,3 +52,11 @@
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
     state: link
+
+- name: ZOOKEEPER | Create data path
+  file:
+    path: "{{ zookeeper_data_path }}"
+    mode: 0760
+    state: directory
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
