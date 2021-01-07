@@ -6,7 +6,7 @@
     state: directory
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
-    mode: "0640"
+    mode: "0750"
     recurse: true
 
 - name: ZOOKEEPER | myid
