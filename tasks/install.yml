@@ -47,7 +47,7 @@
 
 - name: ZOOKEEPER | Symlink Zookeeper to install path
   file:
-    src: "{{ zookeeper_install_path }}/apache-zookeeper-{{ zookeeper_version }}"
+    src: "{{ zookeeper_install_path }}/apache-zookeeper-{{ zookeeper_version }}-bin"
     dest: "{{ zookeeper_install_path }}/zookeeper"
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
