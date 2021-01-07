@@ -3,12 +3,14 @@
 - name: ZOOKEEPER | Ensure zookeeper group
   group:
     name: "{{ zookeeper_group }}"
+    state: present
 
 - name: ZOOKEEPER | Ensure zookeeper user
   user:
     name: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
-    home: /bin/false
+    state: present
+    createhome: no
 
 - name: ZOOKEEPER | Copy Daemon script
   template:
@@ -29,21 +31,30 @@
     regexp: '^export PATH='
     line: 'export PATH=$JAVA_HOME/bin:$PATH'
 
+- name: ZOOKEEPER | Check whether already downloaded and extracted
+  stat:
+    path: "{{ zookeeper_install_path }}/apache-zookeeper-{{ zookeeper_version }}-bin"
+  register: zookeeper_path
+
 - name: ZOOKEEPER | Fetch Zookeeper package
   get_url:
     url: "{{ zookeeper_url }}"
-    dest: "/tmp/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz"
+    dest: /tmp
     checksum: "sha512:{{ zookeeper_checksum_url }}"
     mode: "0640"
+  when: not zookeeper_path.stat.exists
 
 - name: ZOOKEEPER | Extract Zookeeper package
   unarchive:
     src: "/tmp/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz"
     dest: "{{ zookeeper_install_path }}"
+    copy: no
+    extra_opts: [--strip-components=1]
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
     mode: "0750"
     remote_src: true
+  when: not zookeeper_path.stat.exists
 
 - name: ZOOKEEPER | Symlink Zookeeper to install path
   file:
@@ -56,7 +67,15 @@
 - name: ZOOKEEPER | Create data path
   file:
     path: "{{ zookeeper_data_path }}"
-    mode: 0760
     state: directory
+    mode: 0760
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_user }}"
+
+- name: ZOOKEEPER | Create logs path
+  file:
+    path: "{{ zookeeper_log_path }}"
+    state: directory
+    mode: 0760
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_user }}"

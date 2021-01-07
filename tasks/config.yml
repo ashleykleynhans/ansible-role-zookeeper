@@ -26,3 +26,12 @@
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
   notify: restart zookeeper
+
+- name: ZOOKEEPER | Create /etc/default/zookeeper
+  template:
+    src: "{{ zookeeper_default_template_path }}"
+    dest: /etc/default/zookeeper
+    mode: "0640"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+  notify: restart zookeeper

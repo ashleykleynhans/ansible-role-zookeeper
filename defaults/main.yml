@@ -12,6 +12,7 @@ zookeeper_service_state: started
 
 zookeeper_install_path: /opt
 zookeeper_conf_path: /etc/zookeeper
+zookeeper_log_path: /var/log/zookeeper
 zookeeper_data_path: "{{ zookeeper_install_path }}/zookeeper/data"
 
 zookeeper_peer_port: 2888
@@ -24,5 +25,7 @@ zookeeper_max_connections: 0
 zookeeper_server_template_path: zoo.cfg.j2
 zookeeper_myid_template_path: myid.j2
 zookeeper_service_template_path: zookeeper.service.j2
+zookeeper_default_template_path: default.j2
 
 zookeeper_java_home: /opt/java/current
+zookeeper_environment: {}
