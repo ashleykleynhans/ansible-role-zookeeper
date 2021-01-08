@@ -11,7 +11,6 @@ zookeeper_service_enabled: true
 zookeeper_service_state: started
 
 zookeeper_install_path: /opt
-zookeeper_conf_path: /etc/zookeeper
 zookeeper_log_path: /var/log/zookeeper
 zookeeper_data_path: "{{ zookeeper_install_path }}/zookeeper/data"
 

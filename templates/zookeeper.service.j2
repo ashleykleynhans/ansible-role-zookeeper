@@ -7,8 +7,8 @@ After=network.target
 [Service]
 Type=forking
 EnvironmentFile=/etc/default/zookeeper
-ExecStart={{ zookeeper_install_path }}/zookeeper/bin/zkServer.sh --config {{ zookeeper_conf_path }} start
-ExecStop={{ zookeeper_install_path }}/zookeeper/bin/zkServer.sh --config {{ zookeeper_conf_path }} stop
+ExecStart={{ zookeeper_install_path }}/zookeeper/bin/zkServer.sh start
+ExecStop={{ zookeeper_install_path }}/zookeeper/bin/zkServer.sh stop
 TimeoutSec=30
 Restart=on-failure
 User={{ zookeeper_user }}

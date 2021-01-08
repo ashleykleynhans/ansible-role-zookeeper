@@ -1,14 +1,5 @@
 ---
 
-- name: ZOOKEEPER | Create zookeeper config path
-  file:
-    path: "{{ zookeeper_conf_path }}"
-    state: directory
-    owner: "{{ zookeeper_user }}"
-    group: "{{ zookeeper_group }}"
-    mode: "0750"
-    recurse: true
-
 - name: ZOOKEEPER | myid
   template:
     src: "{{ zookeeper_myid_template_path }}"
@@ -21,7 +12,7 @@
 - name: ZOOKEEPER | Copy server config
   template:
     src: "{{ zookeeper_server_template_path }}"
-    dest: "{{ zookeeper_conf_path }}/zoo.cfg"
+    dest: "{{ zookeeper_install_path }}/zookeeper/conf/zoo.cfg"
     mode: "0640"
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
@@ -35,3 +26,12 @@
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
   notify: restart zookeeper
+
+- name: ZOOKEEPER | Symlink zookeeper config path to /etc/zookeeper
+  file:
+    src: "{{ zookeeper_install_path }}/zookeeper/conf"
+    dest: /etc/zookeeper
+    state: link
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+    force: yes
