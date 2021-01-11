@@ -1,5 +1,10 @@
 ---
 
+- name: ZOOKEEPER | Monitoring
+  import_tasks: monitoring.yml
+  tags:
+    - monitoring
+
 - name: ZOOKEEPER | Install
   import_tasks: install.yml
   tags:
