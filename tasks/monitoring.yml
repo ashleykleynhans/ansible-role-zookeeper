@@ -1,4 +1,4 @@
---
+---
 
 - name: ZOOKEEPER | JMX MONITORING | Create /etc/zookeeper/jmx_exporter_config.yml
   copy:
