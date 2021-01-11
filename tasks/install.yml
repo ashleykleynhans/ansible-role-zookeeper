@@ -33,7 +33,7 @@
 
 - name: ZOOKEEPER | Check whether already downloaded and extracted
   stat:
-    path: "{{ zookeeper_install_path }}/apache-zookeeper-{{ zookeeper_version }}-bin"
+    path: "{{ zookeeper_install_path }}/apache-zookeeper-{{ zookeeper_version }}"
   register: zookeeper_path
 
 - name: ZOOKEEPER | Fetch Zookeeper package
