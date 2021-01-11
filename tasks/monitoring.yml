@@ -1,9 +1,9 @@
 ---
 
-- name: ZOOKEEPER | JMX MONITORING | Create /etc/zookeeper/jmx_exporter_config.yml
+- name: ZOOKEEPER | JMX MONITORING | Create JMX Exporter config file
   copy:
     src: jmx_exporter_config.yml
-    dest: /etc/zookeeper/jmx_exporter_config.yml
+    dest: "{{ zookeeper_install_path }}/zookeeper/conf/jmx_exporter_config.yml"
     mode: "0640"
     owner: "{{ zookeeper_user }}"
     group: "{{ zookeeper_group }}"
