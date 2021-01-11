@@ -29,4 +29,4 @@ zookeeper_default_template_path: default.j2
 zookeeper_java_home: /opt/java/current
 
 zookeeper_environment:
-  SERVER_JVMFLAGS: javaagent:/opt/monitoring/jmx_prometheus_javaagent.jar=9010:/etc/zookeeper/jmx_exporter_config.yml
+  SERVER_JVMFLAGS: "-javaagent:/opt/monitoring/jmx_prometheus_javaagent.jar=9010:/etc/zookeeper/jmx_exporter_config.yml"
